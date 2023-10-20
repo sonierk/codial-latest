@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
-const port = 8000
+require('dotenv').config()
+const connectDB = require('./config/mongoose')
 const expressLayouts = require('express-ejs-layouts')
 
 app.use(express.static('./assets'))
@@ -16,9 +17,17 @@ app.use('/', require('./routes'))
 app.set('view engine', 'ejs')
 app.set('views', './views')
 
-app.listen(port,function (err) {
-    if(err){
-        console.log(`Error in running the sever on: ${port}`);
+const port = process.env.PORT || 8000
+
+const start = async () => {
+    try {
+        await connectDB(process.env.MONGO_URI)
+        console.log(`Connected to DB`);
+        app.listen(port, console.log(`Server listening on port: ${port}...`))
+        
+    } catch (error) {
+        console.log(error);
     }
-    console.log(`Server is running on port: ${port}`);
-})
+ }
+
+ start()
