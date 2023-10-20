@@ -1,7 +1,12 @@
 const express = require('express')
+const cookieParser = require('cookie-parser')
 const app = express()
 require('dotenv').config()
 const connectDB = require('./config/mongoose')
+
+app.use(express.urlencoded())
+
+app.use(cookieParser())
 const expressLayouts = require('express-ejs-layouts')
 
 app.use(express.static('./assets'))
