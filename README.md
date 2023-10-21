@@ -7,7 +7,7 @@ git remote set-url origin https://<githubtoken>@github.com/<username>/<repositor
 
 
 1. create index.js and npm init.
-2. mkdir routes controllers views models config
+2. mkdir routes controllers views models config assets
 3. npm install express, require('express') in index.js, app = express(), port= 8000, app.listen()
 4. In script, add "start":     nodemon index.js define in package. json file(npm start)
 5. git init, add the node_module to the .gitignore file.
