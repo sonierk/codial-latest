@@ -8,6 +8,7 @@ const connectDB = require('./config/mongoose')
 const session = require('express-session')
 const passport = require('passport')
 const passportLocal = require('./config/passport-local-strategy')
+const MongoStore = require('connect-mongo');
 
 app.use(express.urlencoded())
 
@@ -33,7 +34,11 @@ app.use(session({
     resave: false,
     cookie: {
         maxAge: (1000*60*100)
-    }
+    },
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGO_URI,
+        autoRemove: 'disabled'
+    })
 }))
 
 app.use(passport.initialize())
