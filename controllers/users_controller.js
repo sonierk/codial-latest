@@ -24,6 +24,13 @@ module.exports.signIn = (req, res)=> {
     })
 }
 
+module.exports.destroySession = (req, res) => {
+    req.logout(req.user, err => {
+      if(err) return next(err);
+      res.redirect("/");
+    });
+  };
+
 // Get the Sign Up data
 module.exports.create = async (req, res) => {
     try {
@@ -41,7 +48,6 @@ module.exports.create = async (req, res) => {
         console.log('MYError',error);
     }
 }
-
 
 // Sign In and create a session for the user
 module.exports.createSession = (req, res) => {
