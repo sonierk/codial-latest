@@ -7,12 +7,18 @@ module.exports.profile = (req, res) => {
 }
 
 module.exports.signUp = (req, res)=> {
+    if(req.isAuthenticated()){
+        return res.redirect('/users/profile')
+    }
     res.render('user_sign_up', {
         title: "Codial | Sign Up"
     })
 }
 
 module.exports.signIn = (req, res)=> {
+    if(req.isAuthenticated()){
+        return res.redirect('/users/profile')
+    }
     res.render('user_sign_in', {
         title: "Codial | Sign In"
     })
@@ -39,5 +45,5 @@ module.exports.create = async (req, res) => {
 
 // Sign In and create a session for the user
 module.exports.createSession = (req, res) => {
-    // TO DO
+    return res.redirect('/')
 }
