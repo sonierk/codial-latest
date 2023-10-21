@@ -23,7 +23,7 @@ module.exports.signIn = (req, res)=> {
         title: "Codial | Sign In"
     })
 }
-
+// The req.logout() is a method of passport
 module.exports.destroySession = (req, res) => {
     req.logout(req.user, err => {
       if(err) return next(err);

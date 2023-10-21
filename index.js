@@ -1,8 +1,10 @@
-const express = require('express')
+const express = require('express') /* 1 */
 const cookieParser = require('cookie-parser')
-const app = express()
+const app = express() /* 2 */
 require('dotenv').config()
 const connectDB = require('./config/mongoose')
+const sassMiddleware = require('node-sass-middleware');
+
 
 // Use for session cookie
 const session = require('express-session')
@@ -10,6 +12,13 @@ const passport = require('passport')
 const passportLocal = require('./config/passport-local-strategy')
 const MongoStore = require('connect-mongo');
 
+app.use(sassMiddleware({
+    src: './assets/scss',
+    dest: './assets/css',
+    debug: true,
+    outputStyle: 'extended',
+    prefix:  '/css'
+}))
 app.use(express.urlencoded())
 
 app.use(cookieParser())
@@ -22,7 +31,7 @@ app.use(expressLayouts)
 app.set('layout extractStyles', true)
 app.set('layout extractScripts', true)
 
-
+/* 5 */
 app.set('view engine', 'ejs')
 app.set('views', './views')
 
@@ -48,8 +57,9 @@ app.use(passport.setAuthenticatedUser)
 // Use express route
 app.use('/', require('./routes'))
 
-const port = process.env.PORT || 8000
+const port = process.env.PORT || 8000 /* 3 */
 
+/* 4 */
 const start = async () => {
     try {
         await connectDB(process.env.MONGO_URI)
