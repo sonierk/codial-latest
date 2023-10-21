@@ -18,3 +18,20 @@ module.exports.create = async (req, res) =>{
         console.log(error);
     }
 }
+
+module.exports.destroy = async (req, res) => {
+    try {
+        const comment = await Comment.findById(req.params.id)
+        if(comment.user == req.user.id){
+            let postId = comment.post
+            await Comment.deleteOne({ _id: req.params.id });
+
+            await Post.findByIdAndUpdate(postId, { $pull: { comments: req.params.id}})
+            return res.redirect('back')
+        } else{
+            return res.redirect('back')
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
