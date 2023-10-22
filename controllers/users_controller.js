@@ -36,13 +36,6 @@ module.exports.signIn = (req, res)=> {
         title: "Codial | Sign In"
     })
 }
-// The req.logout() is a method of passport
-module.exports.destroySession = (req, res) => {
-    req.logout(req.user, err => {
-      if(err) return next(err);
-      res.redirect("/");
-    });
-  };
 
 // Get the Sign Up data
 module.exports.create = async (req, res) => {
@@ -64,5 +57,15 @@ module.exports.create = async (req, res) => {
 
 // Sign In and create a session for the user
 module.exports.createSession = (req, res) => {
+    req.flash('success',"Logged In Successfully!!")
     return res.redirect('/')
 }
+
+// The req.logout() is a method of passport
+module.exports.destroySession = (req, res) => {
+    req.logout(req.user, err => {
+      if(err) return next(err);
+      req.flash('success',"Logged Out Successfully!!")
+      res.redirect("/");
+    });
+  };

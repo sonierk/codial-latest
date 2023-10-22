@@ -4,6 +4,9 @@ const app = express() /* 2 */
 require('dotenv').config()
 const connectDB = require('./config/mongoose')
 const sassMiddleware = require('node-sass-middleware');
+const flash = require('connect-flash');
+const customMware = require('./config/middleware')
+
 
 
 // Use for session cookie
@@ -53,6 +56,9 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(passport.setAuthenticatedUser)
+
+app.use(flash())
+app.use(customMware.setFlash)
 
 // Use express route
 app.use('/', require('./routes'))

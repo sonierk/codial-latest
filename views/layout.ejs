@@ -10,6 +10,12 @@
     </head>
     <body>
         <%- include('_header') %>
+        <% if(locals.flash.success && locals.flash.success.length > 0){ %>
+            <h4>
+                <%= flash.success %>
+            </h4>
+
+        <%}%>
         <main id="layout-main">
             <%- body %>
 

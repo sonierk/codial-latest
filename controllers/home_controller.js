@@ -1,5 +1,6 @@
 const Post = require('../models/post')
 const User = require('../models/user')
+
 module.exports.home = async (req, res) => {
     try {
         const posts = await Post.find({})
