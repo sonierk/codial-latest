@@ -12,6 +12,7 @@ module.exports.create = async (req, res) =>{
             })
             post.comments.push(comment)
             await post.save()
+            req.flash('success',"Comment added!!")
             res.redirect('/')
         }
     } catch (error) {
@@ -27,7 +28,9 @@ module.exports.destroy = async (req, res) => {
             await Comment.deleteOne({ _id: req.params.id });
 
             await Post.findByIdAndUpdate(postId, { $pull: { comments: req.params.id}})
+            req.flash('success',"Comment deleted!!")
             return res.redirect('back')
+
         } else{
             return res.redirect('back')
         }

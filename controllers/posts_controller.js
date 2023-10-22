@@ -6,6 +6,7 @@ module.exports.create = async (req, res) => {
             content: req.body.content,
             user: req.user._id,
         })
+        req.flash('success',"Post added!!")
         return res.redirect('back')
     } catch (error) {
        console.log("Error creating Post", error); 
@@ -20,6 +21,7 @@ module.exports.destroy = async (req, res)=>{
             await Post.deleteOne({ _id: req.params.id });
             
             await Comment.deleteMany({post: req.params.id})
+            req.flash('success',"Post Deleted!!")
             return res.redirect('/');
 
         }else{
