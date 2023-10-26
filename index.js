@@ -28,6 +28,8 @@ app.use(cookieParser())
 const expressLayouts = require('express-ejs-layouts')
 
 app.use(express.static('./assets'))
+// Make the upload file available to the browser 
+app.use('/uploads', express.static(__dirname + '/uploads'))
 app.use(expressLayouts)
 
 // Extract style and script of subpages to Layout
