@@ -34,7 +34,7 @@
             ${post.content} 
             <br>
             <span>
-            ${post.user}
+            ${post.user.name}
             </span>
         </p>
 
